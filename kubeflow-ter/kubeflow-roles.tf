@@ -8,7 +8,7 @@ data "external" "build_kubeflow_roles" {
 
 resource "kubectl_manifest" "install_kubeflow_roles" {
   # carefull with dependencies on null
-  depends_on = [data.external.build_network_policies, resource.kubectl_manifest.install_kubeflow_namespace]
-  for_each = { for idx, obj in split("---", data.external.build_network_policies.result.manifest) : idx => obj }
+  depends_on = [data.external.build_kubeflow_roles, resource.kubectl_manifest.install_kubeflow_namespace]
+  for_each = { for idx, obj in split("---", data.external.build_kubeflow_roles.result.manifest) : idx => obj }
   yaml_body = each.value
 }
