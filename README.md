@@ -1,0 +1,1 @@
+1. during changes null resource wont update resource. if changes happen in a place which is run by null resource , null resource has to be removed from the state manually before terraform apply
