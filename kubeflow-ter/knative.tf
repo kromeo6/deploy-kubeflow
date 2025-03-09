@@ -1,13 +1,24 @@
+# resource "null_resource" "knative_gateway_manifests" {
+#   provisioner "local-exec" {
+#     command = <<EOT
+#       kustomize build manifests/common/knative/knative-serving/overlays/gateways | kubectl apply -f -;
+#     EOT
+#   }
+
 resource "null_resource" "knative_gateway_manifests" {
   provisioner "local-exec" {
     command = <<EOT
+      kustomize build manifests/common/knative/knative-serving/overlays/gateways | kubectl apply -f - || true
+      sleep 5
       kustomize build manifests/common/knative/knative-serving/overlays/gateways | kubectl apply -f -;
     EOT
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "kubectl delete -k manifests/common/knative/knative-serving/overlays/gateways"
+    command = <<EOT
+      kubectl delete -k manifests/common/knative/knative-serving/overlays/gateways || true
+    EOT   
   }
 }
 
