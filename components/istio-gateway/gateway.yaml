@@ -1,0 +1,11 @@
+- op: add
+  path: /spec/servers/0
+  value:
+    hosts:
+    - '*'
+    port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE

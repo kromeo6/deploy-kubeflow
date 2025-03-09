@@ -1,0 +1,81 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../../manifests/common/istio-1-24/istio-install/overlays/oauth2-proxy
+
+components:
+- ../../../../components/istio-gateway
+
+# patchesStrategicMerge
+patches:
+- |-
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: istio-ingressgateway
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: istiod
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: istio-ingressgateway
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: istiod
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: autoscaling/v2
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: istiod
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: networking.istio.io/v1alpha3
+  kind: Gateway
+  metadata:
+    name: istio-ingressgateway
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: security.istio.io/v1beta1
+  kind: AuthorizationPolicy
+  metadata:
+    name: global-deny-all
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: security.istio.io/v1beta1
+  kind: AuthorizationPolicy
+  metadata:
+    name: istio-ingressgateway
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+  metadata:
+    name: istio-sidecar-injector
+    namespace: istio-system
+  $patch: delete
+- |-
+  apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    name: istio-validator-istio-system
+    namespace: istio-system
+  $patch: delete
