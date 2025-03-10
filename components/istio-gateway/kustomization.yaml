@@ -8,3 +8,9 @@ patches:
     kind: Gateway
     name: istio-ingressgateway
   path: gateway.yaml
+
+- target:
+    version: v1
+    kind: Service
+    name: istio-ingressgateway
+  path: service.yaml 
