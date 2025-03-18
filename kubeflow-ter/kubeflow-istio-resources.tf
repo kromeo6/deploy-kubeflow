@@ -6,6 +6,9 @@ data "external" "build_kubeflow_istio_resources" {
   ]
 }
 
+# kustomize build manifests/common/istio-1-24/kubeflow-istio-resources/base | jq -sR '{manifest: .}'
+# kustomize build overlays/dev/istio-resources | jq -sR '{manifest: .}'
+
 resource "kubectl_manifest" "install_kubeflow_istio_resources" {
   # carefull with dependencies on null
   depends_on = [data.external.build_kubeflow_istio_resources, resource.kubectl_manifest.install_kubeflow_namespace]

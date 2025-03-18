@@ -33,36 +33,13 @@ sortOptions:
     - ValidatingWebhookConfiguration
 
 resources:
-# Kubeflow Pipelines
-- ../manifests/apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
-# Katib
-- ../manifests/apps/katib/upstream/installs/katib-with-kubeflow
-# Central Dashboard
-- ../manifests/apps/centraldashboard/overlays/oauth2-proxy
-# Admission Webhook
-- ../manifests/apps/admission-webhook/upstream/overlays/cert-manager
-# Jupyter Web App
-- ../manifests/apps/jupyter/jupyter-web-app/upstream/overlays/istio
-# Notebook Controller
-- ../manifests/apps/jupyter/notebook-controller/upstream/overlays/kubeflow
-# Profiles + KFAM
-- ../manifests/apps/profiles/upstream/overlays/kubeflow
-# PVC Viewer
-- ../manifests/apps/pvcviewer-controller/upstream/base
-# Volumes Web App
-- ../manifests/apps/volumes-web-app/upstream/overlays/istio
-# Tensorboards Controller
-- ../manifests/apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow
-# Tensorboard Web App
-- ../manifests/apps/tensorboard/tensorboards-web-app/upstream/overlays/istio
-# Training Operator
-- ../manifests/apps/training-operator/upstream/overlays/kubeflow
-# User namespace
-- ../manifests/common/user-namespace/base
 
-# # KServe
-# - ../manifests/apps/kserve/kserve
-# - ../manifests/apps/kserve/models-web-app/overlays/kubeflow
+# KNative
+- ../../../manifests/common/knative/knative-serving/overlays/gateways
+# Uncomment the following line if `knative-eventing` is required
+# - ../common/knative/knative-eventing/base
+- ../../../manifests/common/istio-1-24/cluster-local-gateway/base
+
 
 # Ray is an experimental integration
 # Here is the documentation for Ray: https://docs.ray.io/en/latest/

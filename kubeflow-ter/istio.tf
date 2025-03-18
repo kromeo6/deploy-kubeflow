@@ -27,7 +27,7 @@ data "external" "build_istio-manifests" {
 
 resource "kubectl_manifest" "inssstal_istio_files" {
   # carefull with dependencies on null
-  depends_on = [null_resource.istio_crds]
+  depends_on = [null_resource.istio_crds, null_resource.cert_manager_issuer]
   for_each = { for idx, obj in split("---", data.external.build_istio-manifests.result.manifest) : idx => obj }
   yaml_body = each.value
 }

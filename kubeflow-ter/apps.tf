@@ -32,6 +32,6 @@ resource "null_resource" "kubeflow_apps" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "kubectl delete -f apps.yaml"
+    command = "kubectl delete -k kubeflow-app-deploy || true"
   }
 }

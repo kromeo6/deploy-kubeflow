@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../../manifests/common/istio-1-24/kubeflow-istio-resources/base
+
+components:
+- ../../../components/istio-resources
+
+# # patchesStrategicMerge
+# patches:
+# - patch: |-
+#     apiVersion: v1
+#     kind: ConfigMap
+#     metadata:
+#       name: istio-sidecar-injector
+#       namespace: istio-system
+#     $patch: delete

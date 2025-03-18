@@ -9,7 +9,7 @@ data "external" "build_dex_manifests" {
 
 resource "kubectl_manifest" "inssstal_dex_files" {
   # carefull with dependencies on null
-  depends_on = [data.external.build_dex_manifests]
+  depends_on = [data.external.build_dex_manifests, null_resource.wait_for_oauthproxy, null_resource.wait_for_istio_crds, null_resource.wait_for_cert_manager]
   for_each = { for idx, obj in split("---", data.external.build_dex_manifests.result.manifest) : idx => obj }
   yaml_body = each.value
 }

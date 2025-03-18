@@ -2,12 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 patches:
-- target:
-    group: networking.istio.io
-    version: v1alpha3
-    kind: Gateway
-    name: istio-ingressgateway
-  path: gateway.yaml
+# - target:
+#     group: networking.istio.io
+#     version: v1
+#     kind: Gateway
+#     name: kubeflow-gateway
+#   path: gateway.yaml
 
 - target:
     version: v1
